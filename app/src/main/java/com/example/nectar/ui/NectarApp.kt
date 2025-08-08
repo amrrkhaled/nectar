@@ -1,4 +1,15 @@
 package com.example.nectar.ui
 
-class NectarApp {
+import androidx.compose.runtime.Composable
+import androidx.navigation.compose.rememberNavController
+import com.example.nectar.ui.navigation.AppNavHost
+import kotlinx.serialization.Serializable
+
+@Composable
+fun NectarApp() {
+
+    val navController = rememberNavController()
+    AppNavHost(navController = navController)
+
 }
+
