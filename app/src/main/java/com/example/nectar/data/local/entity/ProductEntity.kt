@@ -7,14 +7,14 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "products",
-    foreignKeys = [
-        ForeignKey(
-            entity = CategoryEntity::class,
-            parentColumns = ["id"],
-            childColumns = ["category_id"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ]
+//    foreignKeys = [
+//        ForeignKey(
+//            entity = CategoryEntity::class,
+//            parentColumns = ["id"],
+//            childColumns = ["category_id"],
+//            onDelete = ForeignKey.CASCADE
+//        )
+//    ]
 )
 data class ProductEntity(
     @PrimaryKey(autoGenerate = true)
@@ -27,8 +27,7 @@ data class ProductEntity(
     @ColumnInfo(name = "image_url")
     val imageUrl: String,
 
-    @ColumnInfo(name = "category_id")
-    val categoryId: Int,
+    val category: String,
 
     val isFavorite: Boolean = false,
 

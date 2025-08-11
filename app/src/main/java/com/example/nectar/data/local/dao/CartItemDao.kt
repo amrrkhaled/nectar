@@ -21,7 +21,6 @@ interface CartItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(cartItem: CartItemEntity)
 
-
     @Query("UPDATE cart_items SET quantity = :quantity WHERE product_id = :productId")
     suspend fun updateQuantity(productId: Int, quantity: Int)
 
