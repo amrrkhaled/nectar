@@ -48,7 +48,7 @@ import com.example.nectar.ui.theme.NectarTheme
 fun ProductCard(onAddToCart: (Int) -> Unit = {}, product: Product, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
-            .width(175.dp)
+            .width(170.dp)
             .height(250.dp),
         shape = CustomShapes.card,
         colors = CardDefaults.cardColors(containerColor = Color.White),
