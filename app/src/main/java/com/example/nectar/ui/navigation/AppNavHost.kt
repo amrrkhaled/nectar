@@ -14,17 +14,17 @@ import androidx.navigation.compose.composable
 fun AppNavHost(navController: NavHostController) {
 
     var isOnboardingCompleted by remember { mutableStateOf(false) }
-
-    NavHost(navController = navController, startDestination = Splash) {
-
-        composable<Splash>{}
-        composable<Onboarding>{}
-        composable<Home>{}
-        composable<Product>{}
-        composable<Explore>{}
-        composable<Cart>{}
-        composable<Order>{}
-
-
-    }
+//
+//    NavHost(navController = navController, startDestination = Splash) {
+//
+//        composable<Splash>{}
+//        composable<Onboarding>{}
+//        composable<Home>{}
+//        composable<Product>{}
+//        composable<Explore>{}
+//        composable<Cart>{}
+//        composable<Order>{}
+//
+//
+//    }
 }
