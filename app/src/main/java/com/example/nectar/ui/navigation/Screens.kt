@@ -8,14 +8,20 @@ object Splash
 @Serializable
 object Onboarding
 @Serializable
-object Home
+object Shop
 @Serializable
 object Cart
+
+@Serializable
+object Favourite
 @Serializable
 object Explore
 
 @Serializable
+object Account
 
-object Product
+@Serializable
+data class Product ( val  id : String)
+
 @Serializable
 object Order
