@@ -7,8 +7,9 @@ import com.example.nectar.domain.model.CartItem
 import com.example.nectar.domain.repository.CartItemRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class CartItemRepositoryImp (
+class CartItemRepositoryImpl @Inject constructor(
     private val cartItemDao: CartItemDao
 ) : CartItemRepository {
 
@@ -26,7 +27,7 @@ class CartItemRepositoryImp (
     override suspend fun addCartItem(cartItem: CartItem): CartItem {
 
         val entity = cartItem.toEntity()
-        cartItemDao.insert(entity)
+        cartItemDao.insertOrIncrement(entity)
         return cartItem
     }
 

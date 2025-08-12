@@ -37,8 +37,13 @@ interface ProductDao {
      suspend fun searchProducts(query: SupportSQLiteQuery): List<ProductEntity>
 
      @Query("SELECT * FROM products WHERE isFavorite = 1")
-     suspend fun getFavoriteProducts(): List<ProductEntity>
+     fun getFavoriteProducts(): Flow<List<ProductEntity>>
 
      @Query("SELECT * FROM products WHERE category = :categoryName")
      suspend fun getProductsByCategory(categoryName: String): List<ProductEntity>
+
+     @Query("SELECT * FROM products WHERE price < :maxPrice")
+     suspend fun getProductsUnderPrice(maxPrice: Double): List<ProductEntity>
+
+
 }

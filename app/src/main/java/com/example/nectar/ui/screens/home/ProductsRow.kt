@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.nectar.domain.model.Product
 import com.example.nectar.ui.components.ProductCard
 import com.example.nectar.ui.theme.Black
@@ -34,14 +35,16 @@ fun ProductsRow(
         verticalAlignment = Alignment.CenterVertically
     ){
         Text(
-            text = "Products",
+            text = title,
             modifier = Modifier.padding(0.dp),
             style = MaterialTheme.typography.titleLarge,
             color = Black
         )
         Text(
             text = "See All",
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontSize = 18.sp // increase size as you want
+            ),
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .padding(16.dp)
@@ -55,7 +58,7 @@ fun ProductsRow(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         items(products.size) { index ->
-            ProductCard(product = products[index], onAddToCart = { /* ... */ })
+            ProductCard(product = products[index], onAddToCart = { onAddToCart(products[index].id)})
         }
     }
 
