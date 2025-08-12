@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,13 +25,13 @@ import com.example.nectar.ui.theme.NectarTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(modifier: Modifier = Modifier) {
 
     val homeViewModel: HomeScreenViewModel = viewModel()
 
     val products = homeViewModel.fetchProducts()
     LazyColumn(
-        modifier = Modifier.fillMaxWidth()    )
+        modifier = modifier.fillMaxWidth()    )
     {
         val horizontalPadding = 16.dp
 
