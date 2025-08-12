@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,26 +18,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.example.nectar.domain.model.Product
 import com.example.nectar.ui.components.ProductGrid
 import com.example.nectar.ui.components.SearchBar
 import com.example.nectar.ui.theme.NectarTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltViewModel()) {
 
-    val homeViewModel: HomeScreenViewModel = viewModel()
 
-    val products = homeViewModel.fetchProducts()
+    val bestSelling by viewModel.bestSellingProducts.collectAsState()
+    val exclusiveOffer by viewModel.exclusiveProducts.collectAsState()
+
     LazyColumn(
-        modifier = modifier.fillMaxWidth()    )
+        modifier = modifier.fillMaxWidth()
+    )
     {
         val horizontalPadding = 16.dp
 
         item {
-            Column(Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)) {
+            Column(Modifier
+                .fillMaxWidth()
+                .padding(horizontal = horizontalPadding)) {
                 Spacer(modifier = Modifier.height(32.dp))
                 SearchBar(modifier = Modifier.fillMaxWidth())
                 Spacer(modifier = Modifier.height(16.dp))
@@ -44,28 +51,40 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         }
 
         item {
-            Column(Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)) {
+            Column(Modifier
+                .fillMaxWidth()
+                .padding(horizontal = horizontalPadding)) {
                 Banner(modifier = Modifier.fillMaxWidth())
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
 
         item {
-            Column(Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)) {
-                ProductsRow(products = products)
+            Column(Modifier
+                .fillMaxWidth()
+                .padding(horizontal = horizontalPadding)) {
+                ProductsRow(
+                    title = "Exclusive Offer", products = exclusiveOffer,
+                    onAddToCart = { id ->
+                        viewModel.addToCart(id)
+                    }
+                )
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
 
         item {
-            Column(Modifier.fillMaxWidth().padding(horizontal = horizontalPadding)) {
-                ProductsRow(products = products)
+            Column(Modifier
+                .fillMaxWidth()
+                .padding(horizontal = horizontalPadding)) {
+                ProductsRow(title = "Best Selling", products = bestSelling)
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
 
     }
 }
+
 @Composable
 fun ImageBanner(images: List<String>, modifier: Modifier = Modifier) {
     var currentIndex by remember { mutableStateOf(0) }
@@ -90,7 +109,7 @@ fun ImageBanner(images: List<String>, modifier: Modifier = Modifier) {
 @Composable
 fun HomeScreenPreview() {
     NectarTheme {
-    HomeScreen()
+        HomeScreen()
     }
 }
 

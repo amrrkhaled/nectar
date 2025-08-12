@@ -1,14 +1,12 @@
 package com.example.nectar.domain.model
 
 
-data class CartItem (
-
+data class CartItem(
     val id: Int,
     val productId: Int,
-    val name: String,
-    val detail: String,
-    val price: Double,
+    val name: String? = null,
+    val detail: String? = null,
+    val price: Double? = null,
     val quantity: Int,
-    val imageUrl: String,
-
+    val imageUrl: String? = null
 )

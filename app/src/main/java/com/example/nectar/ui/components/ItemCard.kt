@@ -45,7 +45,7 @@ import com.example.nectar.ui.theme.LightGray
 import com.example.nectar.ui.theme.NectarTheme
 
 @Composable
-fun ProductCard(onAddToCart: (Int) -> Unit = {}, product: Product, modifier: Modifier = Modifier) {
+fun ProductCard(onAddToCart: () -> Unit = {}, product: Product, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
             .width(170.dp)
@@ -109,7 +109,7 @@ fun ProductCard(onAddToCart: (Int) -> Unit = {}, product: Product, modifier: Mod
                     color = Color.Black
                 )
 
-                AddToCartButton(onAddToCart = { onAddToCart(product.id) })
+                AddToCartButton(onAddToCart =  onAddToCart )
             }
         }
     }

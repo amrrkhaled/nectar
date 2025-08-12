@@ -1,110 +1,57 @@
 package com.example.nectar.ui.screens.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import coil.util.CoilUtils.result
+import com.example.nectar.domain.model.CartItem
 import com.example.nectar.domain.model.Product
+import com.example.nectar.domain.usecase.cartItems.AddToCartUseCase
+import com.example.nectar.domain.usecase.products.GetBestSellingUseCase
+import com.example.nectar.domain.usecase.products.GetExclusiveOfferUseCase
+import com.example.nectar.domain.usecase.products.GetProductsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeScreenViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val getProductsUseCase: GetProductsUseCase,
+    private val addToCartUseCase: AddToCartUseCase,
+    private val getExclusiveOfferUseCase: GetExclusiveOfferUseCase,
+    private val getBestSellingUseCase: GetBestSellingUseCase
+) : ViewModel() {
 
+    private val _exclusiveProducts = MutableStateFlow<List<Product>>(emptyList())
+    val exclusiveProducts = _exclusiveProducts.asStateFlow()
 
-    fun fetchProducts(): List<Product> {
-        // Simulating a network call or database fetch
-        // In a real application, this would be replaced with actual data fetching logic
-        return listOf(
-            Product(
-                id = 1,
-                name = "Apple",
-                detail = "1kg",
-                imageUrl = "https://img.freepik.com/premium-photo/red-apple-with-white-background-shadow-it_14117-4740.jpg",
-                price = 2.99,
-                description = "Fresh and juicy apples.",
-                category = "Fruits",
-                nutrition = mapOf("Calories" to "52 kcal", "Protein" to "0.3 g"),
-                review = 4,
-                isFavorite = false
-            ),
-            Product(
-                id = 2,
-                name = "Banana",
-                detail = "1kg",
-                imageUrl = "https://img.freepik.com/premium-photo/red-apple-with-white-background-shadow-it_14117-4740.jpg",
-                price = 1.99,
-                description = "Sweet and ripe bananas.",
-                category = "Fruits",
-                nutrition = mapOf("Calories" to "89 kcal", "Protein" to "1.1 g"),
-                review = 5,
-                isFavorite = true
-            ), Product(
-                id = 1,
-                name = "Apple",
-                detail = "1kg",
-                imageUrl = "https://img.freepik.com/premium-photo/red-apple-with-white-background-shadow-it_14117-4740.jpg",
-                price = 2.99,
-                description = "Fresh and juicy apples.",
-                category = "Fruits",
-                nutrition = mapOf("Calories" to "52 kcal", "Protein" to "0.3 g"),
-                review = 4,
-                isFavorite = false
-            ),
-            Product(
-                id = 2,
-                name = "Banana",
-                detail = "1kg",
-                imageUrl = "https://example.com/banana.jpg",
-                price = 1.99,
-                description = "Sweet and ripe bananas.",
-                category = "Fruits",
-                nutrition = mapOf("Calories" to "89 kcal", "Protein" to "1.1 g"),
-                review = 5,
-                isFavorite = true
-            ), Product(
-                id = 1,
-                name = "Apple",
-                detail = "1kg",
-                imageUrl = "https://example.com/apple.jpg",
-                price = 2.99,
-                description = "Fresh and juicy apples.",
-                category = "Fruits",
-                nutrition = mapOf("Calories" to "52 kcal", "Protein" to "0.3 g"),
-                review = 4,
-                isFavorite = false
-            ),
-            Product(
-                id = 2,
-                name = "Banana",
-                detail = "1kg",
-                imageUrl = "https://example.com/banana.jpg",
-                price = 1.99,
-                description = "Sweet and ripe bananas.",
-                category = "Fruits",
-                nutrition = mapOf("Calories" to "89 kcal", "Protein" to "1.1 g"),
-                review = 5,
-                isFavorite = true
-            ), Product(
-                id = 1,
-                name = "Apple",
-                detail = "1kg",
-                imageUrl = "https://example.com/apple.jpg",
-                price = 2.99,
-                description = "Fresh and juicy apples.",
-                category = "Fruits",
-                nutrition = mapOf("Calories" to "52 kcal", "Protein" to "0.3 g"),
-                review = 4,
-                isFavorite = false
-            ),
-            Product(
-                id = 2,
-                name = "Banana",
-                detail = "1kg",
-                imageUrl = "https://example.com/banana.jpg",
-                price = 1.99,
-                description = "Sweet and ripe bananas.",
-                category = "Fruits",
-                nutrition = mapOf("Calories" to "89 kcal", "Protein" to "1.1 g"),
-                review = 5,
-                isFavorite = true
-            )
-        )
+    private val _bestSellingProducts = MutableStateFlow<List<Product>>(emptyList())
+    val bestSellingProducts = _bestSellingProducts.asStateFlow()
+
+    init {
+
+        viewModelScope.launch {
+            val exclusiveProductsResult = getExclusiveOfferUseCase()
+            _exclusiveProducts.value = exclusiveProductsResult
+            val bestSellingProductsResult = getBestSellingUseCase()
+            _bestSellingProducts.value = bestSellingProductsResult
+        }
     }
 
+     fun addToCart(productId: Int) {
+         Log.e("HomeViewModel", "Adding product with ID:  to cart")
+
+         val cartItem = CartItem(
+            id = 0,
+            productId = productId,
+            quantity = 1,
+        )
+         viewModelScope.launch {
+            addToCartUseCase(cartItem)
+        }
+    }
 
 }

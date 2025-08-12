@@ -6,9 +6,12 @@ import com.example.nectar.data.mapper.toDomain
 import com.example.nectar.domain.model.Product
 import com.example.nectar.domain.model.SearchFilter
 import com.example.nectar.domain.repository.ProductRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import kotlin.collections.map
 
-class ProductRepositoryImp @Inject constructor(
+class ProductRepositoryImpl @Inject constructor(
     private val productDao: ProductDao
 ) : ProductRepository {
 
@@ -39,7 +42,7 @@ class ProductRepositoryImp @Inject constructor(
 
     override suspend fun getProducts(): List<Product> {
         val productEntities = productDao.getAllProducts()
-        return productEntities.map { it.toDomain()  }
+        return productEntities.map { it.toDomain() }
     }
 
     override suspend fun getProductById(id: Int): Product? {
@@ -52,7 +55,21 @@ class ProductRepositoryImp @Inject constructor(
         return productEntities.map { it.toDomain() }
     }
 
+    override suspend fun getFavoriteProducts(): Flow<List<Product>> {
+        val productEntities = productDao.getFavoriteProducts()
+        return productEntities.map { list ->
+            list.map { it.toDomain() }
+        }
+    }
+    override suspend fun getExclusiveOffer(): List<Product> {
+        val productEntities = productDao.getProductsUnderPrice(2.0)
+        return productEntities.map { it.toDomain() }
+    }
 
+    override suspend fun getBestSelling(): List<Product> {
+        val productEntities = productDao.getProductsUnderPrice(5.0)
+        return productEntities.map { it.toDomain() }
+    }
 
 
 
