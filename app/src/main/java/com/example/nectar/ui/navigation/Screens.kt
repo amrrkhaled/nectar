@@ -21,7 +21,7 @@ object Explore
 object Account
 
 @Serializable
-data class Product ( val  id : String)
+data class Product (val id: Int)
 
 @Serializable
 object Order

@@ -20,6 +20,7 @@ import com.example.nectar.ui.navigation.Cart
 import com.example.nectar.ui.navigation.Explore
 import com.example.nectar.ui.navigation.Favourite
 import com.example.nectar.ui.navigation.Shop
+import com.example.nectar.ui.screens.ProductDetail.ProductDetailTopBar
 import com.example.nectar.ui.screens.home.HomeScreen
 import com.example.nectar.ui.screens.home.HomeScreenAppBar
 import com.example.nectar.ui.theme.NectarTheme
@@ -47,7 +48,7 @@ fun NectarApp() {
                     Shop -> HomeScreenAppBar()
                     "explore" -> HomeScreenAppBar()
                     "cart" -> HomeScreenAppBar()
-                    else -> HomeScreenAppBar()
+                    else -> {}
                 }
             },
             bottomBar = { BottomNavigationBar(navController = navController) },
@@ -59,11 +60,10 @@ fun NectarApp() {
 
             Surface(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
+                    .fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                AppNavHost(navController = navController)
+                AppNavHost(navController = navController , contentPadding = innerPadding)
             }
         }
     }

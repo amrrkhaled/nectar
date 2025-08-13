@@ -28,7 +28,7 @@ fun ProductGrid(
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(products.size) { index ->
-            ProductCard(product = products[index], onAddToCart = { /* ... */ })
+            ProductCard(product = products[index], onAddToCart = { /* ... */ } , onProductClick = {})
         }
     }
 

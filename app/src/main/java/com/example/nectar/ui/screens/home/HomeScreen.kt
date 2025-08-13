@@ -28,7 +28,11 @@ import com.example.nectar.ui.theme.NectarTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel(),
+    onProductClick: (Int) -> Unit,
+) {
 
 
     val bestSelling by viewModel.bestSellingProducts.collectAsState()
@@ -41,9 +45,11 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
         val horizontalPadding = 16.dp
 
         item {
-            Column(Modifier
-                .fillMaxWidth()
-                .padding(horizontal = horizontalPadding)) {
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding)
+            ) {
                 Spacer(modifier = Modifier.height(32.dp))
                 SearchBar(modifier = Modifier.fillMaxWidth())
                 Spacer(modifier = Modifier.height(16.dp))
@@ -51,33 +57,39 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = hiltVie
         }
 
         item {
-            Column(Modifier
-                .fillMaxWidth()
-                .padding(horizontal = horizontalPadding)) {
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding)
+            ) {
                 Banner(modifier = Modifier.fillMaxWidth())
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
 
         item {
-            Column(Modifier
-                .fillMaxWidth()
-                .padding(horizontal = horizontalPadding)) {
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding)
+            ) {
                 ProductsRow(
                     title = "Exclusive Offer", products = exclusiveOffer,
                     onAddToCart = { id ->
-                        viewModel.addToCart(id)
-                    }
+                        viewModel.addToCart(id) },
+                    onProductClick = onProductClick,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
 
         item {
-            Column(Modifier
-                .fillMaxWidth()
-                .padding(horizontal = horizontalPadding)) {
-                ProductsRow(title = "Best Selling", products = bestSelling)
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = horizontalPadding)
+            ) {
+                ProductsRow(title = "Best Selling", products = bestSelling, onProductClick = onProductClick )
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
@@ -109,7 +121,7 @@ fun ImageBanner(images: List<String>, modifier: Modifier = Modifier) {
 @Composable
 fun HomeScreenPreview() {
     NectarTheme {
-        HomeScreen()
+//        HomeScreen()
     }
 }
 

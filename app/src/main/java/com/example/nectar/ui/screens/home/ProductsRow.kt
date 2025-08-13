@@ -26,7 +26,8 @@ fun ProductsRow(
     title : String = "Products",
     products: List<Product>,
     onAddToCart: (Int) -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onProductClick: (Int) -> Unit
 ) {
     Column{
     Row (
@@ -58,7 +59,7 @@ fun ProductsRow(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         items(products.size) { index ->
-            ProductCard(product = products[index], onAddToCart = { onAddToCart(products[index].id)})
+            ProductCard(product = products[index], onAddToCart = { onAddToCart(products[index].id)} , onProductClick = { onProductClick(products[index].id) })
         }
     }
 
