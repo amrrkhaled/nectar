@@ -1,8 +1,10 @@
 package com.example.nectar.data.repository
 
+import android.provider.SyncStateContract.Helpers.insert
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.nectar.data.local.dao.ProductDao
 import com.example.nectar.data.mapper.toDomain
+import com.example.nectar.data.mapper.toEntity
 import com.example.nectar.domain.model.Product
 import com.example.nectar.domain.model.SearchFilter
 import com.example.nectar.domain.repository.ProductRepository
@@ -45,9 +47,9 @@ class ProductRepositoryImpl @Inject constructor(
         return productEntities.map { it.toDomain() }
     }
 
-    override suspend fun getProductById(id: Int): Product? {
+    override suspend fun getProductById(id: Int): Product {
         val productEntity = productDao.getProductWithDetail(id)
-        return productEntity?.toDomain()
+        return productEntity.toDomain()
     }
 
     override suspend fun getProductsByCategory(category: String): List<Product> {
@@ -71,6 +73,17 @@ class ProductRepositoryImpl @Inject constructor(
         return productEntities.map { it.toDomain() }
     }
 
+    override suspend fun toggleFavoriteStatus(productId: Int) : Boolean {
+        // Get the current product
+        val product = getProductById(productId)
+
+        // Invert the favorite status
+        val newProduct = product.copy(isFavorite = !product.isFavorite)
+
+        // Save the updated product
+        productDao.insert(newProduct.toEntity())
+        return newProduct.isFavorite
+    }
 
 
 }
