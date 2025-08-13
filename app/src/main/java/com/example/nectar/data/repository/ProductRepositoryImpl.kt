@@ -81,7 +81,7 @@ class ProductRepositoryImpl @Inject constructor(
         val newProduct = product.copy(isFavorite = !product.isFavorite)
 
         // Save the updated product
-        productDao.insert(newProduct.toEntity())
+        productDao.update(newProduct.toEntity())
         return newProduct.isFavorite
     }
 
