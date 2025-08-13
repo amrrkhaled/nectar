@@ -89,7 +89,8 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(horizontal = horizontalPadding)
             ) {
-                ProductsRow(title = "Best Selling", products = bestSelling, onProductClick = onProductClick )
+                ProductsRow(onAddToCart = { id ->
+                    viewModel.addToCart(id) },title = "Best Selling", products = bestSelling, onProductClick = onProductClick )
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }

@@ -14,6 +14,7 @@ import com.example.nectar.ui.screens.ProductDetail.ProductDetailScreen
 import com.example.nectar.ui.screens.ProductDetail.ProductDetailViewModel
 import com.example.nectar.ui.screens.cart.CartScreen
 import com.example.nectar.ui.screens.explore.ExploreScreen
+import com.example.nectar.ui.screens.favorite.FavoriteScreen
 import com.example.nectar.ui.screens.home.HomeScreen
 import com.example.nectar.ui.screens.onboarding.OnboardingScreen
 import com.example.nectar.ui.screens.order.OrderScreen
@@ -87,7 +88,12 @@ fun AppNavHost(
         }
 
         composable<Favourite> {
-//            FavouriteScreen()
+            FavoriteScreen(
+                modifier = Modifier.padding(contentPadding),
+                onProductClick = { productId ->
+                    navController.navigate(Product(id = productId))
+                }
+                )
         }
 
         composable<Account> {
