@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -81,9 +82,18 @@ fun AppNavHost(
 
         composable<Cart> {
             CartScreen(
-//                onCheckout = {
-//                    navController.navigate(Order)
-//                }
+                modifier = Modifier.padding(contentPadding),
+////                onCheckout = {
+////                    navController.navigate(Order)
+////                }
+                onProductClick = { productId ->
+                    navController.navigate(Product(id = productId))
+                },
+                onGoToOrder = {
+                    navController.navigate(Order) {
+                        popUpTo(Cart) { inclusive = true }
+                    }
+                }
             )
         }
 
@@ -106,7 +116,11 @@ fun AppNavHost(
 
         composable<Order> {
             OrderScreen(
-//                onBackClick = { navController.popBackStack() }
+                onBackToHome = {
+                    navController.navigate(Shop) {
+                        popUpTo(Order) { inclusive = true }
+                    }
+                }
             )
         }
     }

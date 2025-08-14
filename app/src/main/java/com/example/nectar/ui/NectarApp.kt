@@ -21,6 +21,7 @@ import com.example.nectar.ui.navigation.Explore
 import com.example.nectar.ui.navigation.Favourite
 import com.example.nectar.ui.navigation.Shop
 import com.example.nectar.ui.screens.ProductDetail.ProductDetailTopBar
+import com.example.nectar.ui.screens.cart.CartTopBar
 import com.example.nectar.ui.screens.home.HomeScreen
 import com.example.nectar.ui.screens.home.HomeScreenAppBar
 import com.example.nectar.ui.theme.NectarTheme
@@ -47,7 +48,8 @@ fun NectarApp() {
                 when (currentScreen) {
                     Shop -> HomeScreenAppBar()
                     "explore" -> HomeScreenAppBar()
-                    "cart" -> HomeScreenAppBar()
+                    Cart -> CartTopBar()
+
                     else -> {}
                 }
             },
