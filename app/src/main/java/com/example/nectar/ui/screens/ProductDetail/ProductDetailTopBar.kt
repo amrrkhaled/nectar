@@ -2,6 +2,8 @@ package com.example.nectar.ui.screens.ProductDetail
 
 import android.R.attr.contentDescription
 import android.R.attr.onClick
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -23,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.nectar.R
+import com.example.nectar.domain.model.Product
 import com.example.nectar.ui.theme.Black
 import com.example.nectar.ui.theme.ProductDetailColor
 
@@ -30,7 +33,7 @@ import com.example.nectar.ui.theme.ProductDetailColor
 fun ProductDetailTopBar(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
-    onShare: () -> Unit,
+    onShare : () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -54,7 +57,7 @@ fun ProductDetailTopBar(
 
     IconButton(
         onClick = onShare,
-        modifier = Modifier.size(48.dp)
+        modifier = Modifier.size(72.dp)
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_share),
@@ -65,3 +68,14 @@ fun ProductDetailTopBar(
     }
 
 }}
+
+fun shareProduct(context: Context, product: Product) {
+    val sendIntent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, "${product.name}\n\n${product.description}")
+        type = "text/plain"
+    }
+
+    val shareIntent = Intent.createChooser(sendIntent, null)
+    context.startActivity(shareIntent)
+}

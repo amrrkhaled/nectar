@@ -16,13 +16,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.nectar.domain.model.Product
 import com.example.nectar.ui.components.Divider
 import com.example.nectar.ui.components.WideButton
 import com.example.nectar.ui.theme.*
 
 @Composable
 fun ProductDetailScreen(onBack: () -> Unit, viewModel: ProductDetailViewModel) {
-
+    val product = viewModel.product.collectAsState().value
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             ProductDetailTopBar(
@@ -30,11 +32,15 @@ fun ProductDetailScreen(onBack: () -> Unit, viewModel: ProductDetailViewModel) {
                     .padding(8.dp)
                     .background(Color.Transparent),
                 onBack = onBack,
-                onShare = { /* handle share click */ })
+                onShare = {
+                    shareProduct(context = context, product = product)
+                })
         }) { innerpading ->
 
         ProductDetail(
             modifier = Modifier.padding(innerpading),
+            product = product,
+            viewModel = viewModel
             )
     }
 }
@@ -42,10 +48,12 @@ fun ProductDetailScreen(onBack: () -> Unit, viewModel: ProductDetailViewModel) {
 
 @Composable
 fun ProductDetail(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    product: Product,
+    viewModel: ProductDetailViewModel
 ) {
-    val viewModel: ProductDetailViewModel = hiltViewModel()
-    val product = viewModel.product.collectAsState().value
+//    val viewModel: ProductDetailViewModel = hiltViewModel()
+//    val product = viewModel.product.collectAsState().value
     var quantity by remember { mutableStateOf(1) }
     val totalPrice = product.price * quantity
     val context = LocalContext.current
@@ -76,7 +84,7 @@ fun ProductDetail(
                 product.detail,
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
-                color = DarkGray
+                color = SearchTextColor
             )
 
             Spacer(modifier = Modifier.height(16.dp))

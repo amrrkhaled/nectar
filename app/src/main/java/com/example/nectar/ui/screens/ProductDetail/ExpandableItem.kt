@@ -37,6 +37,7 @@ import com.example.nectar.ui.theme.Black
 import com.example.nectar.ui.theme.BottomSheetBackgroundColor
 import com.example.nectar.ui.theme.DarkGray
 import com.example.nectar.ui.theme.NectarTheme
+import com.example.nectar.ui.theme.SearchTextColor
 import com.example.nectar.ui.theme.Transparent
 import com.example.nectar.ui.theme.White
 
@@ -104,7 +105,7 @@ fun ExpandableItem(
                 Text(
                     text = content,
                     fontSize = 14.sp,
-                    color = DarkGray,
+                    color = SearchTextColor,
                     lineHeight = 20.sp
                 )
             }
