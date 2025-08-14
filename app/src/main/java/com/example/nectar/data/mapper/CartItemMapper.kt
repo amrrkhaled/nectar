@@ -3,10 +3,11 @@ package com.example.nectar.data.mapper
 import com.example.nectar.data.local.entity.CartItemEntity
 import com.example.nectar.data.local.relations.CartWithProduct
 import com.example.nectar.domain.model.CartItem
+import com.example.nectar.domain.model.CartItemView
 
 
-fun CartWithProduct.toDomain(): CartItem {
-    return CartItem(
+fun CartWithProduct.toDomain(): CartItemView {
+    return CartItemView(
         id = cartItem.id,          // cart entry id
         productId = cartItem.productId,
         name = product.name,

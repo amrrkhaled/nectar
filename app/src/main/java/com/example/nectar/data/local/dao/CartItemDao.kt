@@ -8,6 +8,7 @@ import androidx.room.Transaction
 import com.example.nectar.data.local.entity.CartItemEntity
 import com.example.nectar.data.local.relations.CartWithProduct
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 @Dao
 interface CartItemDao {
@@ -41,7 +42,7 @@ interface CartItemDao {
     @Query("UPDATE cart_items SET quantity = quantity + :amount WHERE product_id = :productId")
     suspend fun incrementQuantity(productId: Int, amount: Int = 1)
 
-    @Query("UPDATE cart_items SET quantity = quantity + :amount WHERE product_id = :productId")
+    @Query("UPDATE cart_items SET quantity = quantity - :amount WHERE product_id = :productId")
     suspend fun decrementQuantity(productId: Int, amount: Int = 1)
 
     @Query("DELETE FROM cart_items WHERE product_id = :productId")
@@ -49,4 +50,13 @@ interface CartItemDao {
 
     @Query("DELETE FROM cart_items")
     suspend fun clearCart()
+
+    @Query("""
+    SELECT ROUND(SUM(price * quantity), 2) 
+    FROM cart_items 
+    INNER JOIN products ON cart_items.product_id = products.id
+    """)
+    fun getTotalPrice(): Flow<Double>
+
+
 }

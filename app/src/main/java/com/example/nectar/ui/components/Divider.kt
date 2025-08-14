@@ -10,9 +10,9 @@ import androidx.compose.ui.unit.dp
 import com.example.nectar.ui.theme.DividerColor
 
 @Composable
-fun Divider(){
+fun Divider(modifier: Modifier = Modifier){
     HorizontalDivider(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         thickness = 1.dp,
         color = DividerColor
     )

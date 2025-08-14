@@ -4,7 +4,6 @@ package com.example.nectar.data.mapper
 import com.example.nectar.data.local.entity.ProductEntity
 import com.example.nectar.domain.model.Product
 
-
 // Entity → Domain
 fun ProductEntity.toDomain(): Product {
     return Product(

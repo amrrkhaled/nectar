@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.room.Transaction
+import androidx.room.Update
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.nectar.data.local.entity.ProductEntity
 import kotlinx.coroutines.flow.Flow
@@ -22,6 +23,9 @@ interface ProductDao {
 
      @Insert(onConflict = OnConflictStrategy.REPLACE)
      suspend fun insertAll(products: List<ProductEntity>)
+
+     @Update
+     suspend fun update(product: ProductEntity)
 
      @Query("DELETE FROM products")
      suspend fun deleteAll()
