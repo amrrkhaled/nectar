@@ -85,6 +85,8 @@ dependencies {
 
     implementation("com.google.accompanist:accompanist-pager:0.22.0-rc")
 
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

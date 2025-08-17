@@ -13,6 +13,7 @@ import com.example.nectar.domain.usecase.products.GetProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,6 +32,9 @@ class HomeViewModel @Inject constructor(
     private val _bestSellingProducts = MutableStateFlow<List<Product>>(emptyList())
     val bestSellingProducts = _bestSellingProducts.asStateFlow()
 
+    private val _ready = MutableStateFlow(false)
+    val ready: StateFlow<Boolean> = _ready.asStateFlow()
+
     init {
 
         viewModelScope.launch {
@@ -38,6 +42,7 @@ class HomeViewModel @Inject constructor(
             _exclusiveProducts.value = exclusiveProductsResult
             val bestSellingProductsResult = getBestSellingUseCase()
             _bestSellingProducts.value = bestSellingProductsResult
+             _ready.value=true
         }
     }
 

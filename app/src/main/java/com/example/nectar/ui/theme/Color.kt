@@ -9,7 +9,7 @@ val White = Color(0xFFFFFFFF)
 val Black = Color(0xFF000000)
 
 val Transparent = Color(0x00000000)
-
+val onBoardingText = Color(0xFFFCFCFC)
 val Gray = Color(0xFF808080)
 val LightGray = Color(0xFFD3D3D3)
 val DarkGray = Color(0xFFA9A9A9)

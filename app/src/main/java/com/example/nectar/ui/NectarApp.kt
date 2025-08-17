@@ -19,23 +19,26 @@ import com.example.nectar.ui.navigation.BottomNavigationBar
 import com.example.nectar.ui.navigation.Cart
 import com.example.nectar.ui.navigation.Explore
 import com.example.nectar.ui.navigation.Favourite
+import com.example.nectar.ui.navigation.Onboarding
 import com.example.nectar.ui.navigation.Shop
 import com.example.nectar.ui.screens.ProductDetail.ProductDetailTopBar
 import com.example.nectar.ui.screens.cart.CartTopBar
 import com.example.nectar.ui.screens.home.HomeScreen
 import com.example.nectar.ui.screens.home.HomeScreenAppBar
+import com.example.nectar.ui.screens.home.HomeViewModel
 import com.example.nectar.ui.theme.NectarTheme
 import kotlinx.serialization.Serializable
 
 @Composable
-fun NectarApp() {
+fun NectarApp(viewModel: HomeViewModel) {
     val navController = rememberNavController()
     val routeToScreen = mapOf(
         Shop::class.qualifiedName to Shop,
         Explore::class.qualifiedName to Explore,
         Cart::class.qualifiedName to Cart,
         Favourite::class.qualifiedName to Favourite,
-        Account::class.qualifiedName to Account
+        Account::class.qualifiedName to Account,
+        Onboarding::class.qualifiedName to Onboarding
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -47,9 +50,7 @@ fun NectarApp() {
             topBar = {
                 when (currentScreen) {
                     Shop -> HomeScreenAppBar()
-                    "explore" -> HomeScreenAppBar()
                     Cart -> CartTopBar()
-
                     else -> {}
                 }
             },
@@ -65,7 +66,7 @@ fun NectarApp() {
                     .fillMaxSize(),
                 color = MaterialTheme.colorScheme.background
             ) {
-                AppNavHost(navController = navController , contentPadding = innerPadding)
+                AppNavHost(navController = navController , contentPadding = innerPadding , viewModel = viewModel)
             }
         }
     }
@@ -76,6 +77,6 @@ fun NectarApp() {
 @Composable
 fun NectarAppPreview() {
     NectarTheme {
-        NectarApp()
+//        NectarApp()
     }
 }
