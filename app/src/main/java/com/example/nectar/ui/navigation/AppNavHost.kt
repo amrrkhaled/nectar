@@ -2,8 +2,11 @@ package com.example.nectar.ui.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.OutlinedTextFieldDefaults.contentPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -11,12 +14,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.nectar.data.prefrences.OnboardingPreferences
 import com.example.nectar.ui.screens.ProductDetail.ProductDetailScreen
 import com.example.nectar.ui.screens.ProductDetail.ProductDetailViewModel
 import com.example.nectar.ui.screens.cart.CartScreen
 import com.example.nectar.ui.screens.explore.ExploreScreen
 import com.example.nectar.ui.screens.favorite.FavoriteScreen
 import com.example.nectar.ui.screens.home.HomeScreen
+import com.example.nectar.ui.screens.home.HomeViewModel
 import com.example.nectar.ui.screens.onboarding.OnboardingScreen
 import com.example.nectar.ui.screens.order.OrderScreen
 import com.example.nectar.ui.screens.splash.SplashScreen
@@ -24,37 +29,28 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun AppNavHost(
-    contentPadding : PaddingValues = PaddingValues(0.dp),
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     navController: NavHostController,
-    // Consider injecting a preferences repository here
-//    onboardingViewModel: OnboardingViewModel = hiltViewModel()
+    viewModel: HomeViewModel,
+//    navHostViewModel: NavHostViewModel = hiltViewModel()
 ) {
-//    val isOnboardingCompleted by onboardingViewModel.isOnboardingCompleted.collectAsState()
-    val isOnboardingCompleted = true
+//    val isOnboardingCompleted by navHostViewModel.onboardingPreferences
+//        .isOnboardingCompleted
+//        .collectAsState(initial = false)
+//    val startDestination = if (isOnboardingCompleted) Shop else Onboarding
+
     NavHost(
         navController = navController,
-        startDestination = Splash
+        startDestination = Onboarding
     ) {
-        composable<Splash> {
-            SplashScreen()
-
-            LaunchedEffect(Unit) {
-                delay(2000)
-                val destination = if (isOnboardingCompleted) Shop else Onboarding
-                navController.navigate(destination) {
-                    popUpTo(Splash) { inclusive = true }
-                }
-            }
-        }
 
         composable<Onboarding> {
             OnboardingScreen(
-//                onComplete = {
-//                    onboardingViewModel.completeOnboarding()
-//                    navController.navigate(Shop) {
-//                        popUpTo(Onboarding) { inclusive = true }
-//                    }
-//                }
+                onGetStarted = {
+                    navController.navigate(Shop) {
+                        popUpTo(Onboarding) { inclusive = true }
+                    }
+                }
             )
         }
 
@@ -63,7 +59,8 @@ fun AppNavHost(
                 modifier = Modifier.padding(contentPadding),
                 onProductClick = { productId ->
                     navController.navigate(Product(id = productId))
-                }
+                },
+                viewModel = viewModel
             )
         }
         composable<Product> {
@@ -103,7 +100,7 @@ fun AppNavHost(
                 onProductClick = { productId ->
                     navController.navigate(Product(id = productId))
                 }
-                )
+            )
         }
 
         composable<Account> {
