@@ -6,10 +6,7 @@ import androidx.room.Room
 import com.example.nectar.data.local.AppDatabase
 import com.example.nectar.data.local.dao.CartItemDao
 import com.example.nectar.data.local.dao.ProductDao
-import com.example.nectar.data.prefrences.OnboardingPreferences
-import com.example.nectar.data.repository.ProductRepositoryImpl
-import com.example.nectar.domain.repository.ProductRepository
-import com.example.nectar.ui.navigation.Product
+import com.example.nectar.data.preferences.OnboardingPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

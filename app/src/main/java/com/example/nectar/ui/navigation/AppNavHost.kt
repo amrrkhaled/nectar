@@ -3,7 +3,10 @@ package com.example.nectar.ui.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -24,34 +27,38 @@ import com.example.nectar.ui.screens.home.HomeScreen
 import com.example.nectar.ui.screens.home.HomeViewModel
 import com.example.nectar.ui.screens.onboarding.OnboardingScreen
 import com.example.nectar.ui.screens.order.OrderScreen
+import kotlinx.coroutines.launch
 
 @Composable
 fun AppNavHost(
     contentPadding: PaddingValues = PaddingValues(0.dp),
     navController: NavHostController,
     viewModel: HomeViewModel,
-//    navHostViewModel: NavHostViewModel = hiltViewModel()
+    navHostViewModel: NavHostViewModel,
+    startDestination: Any
 ) {
-//    val isOnboardingCompleted by navHostViewModel.onboardingPreferences
-//        .isOnboardingCompleted
-//        .collectAsState(initial = false)
-    val isOnboardingCompleted = true
-    val startDestination = if (isOnboardingCompleted) Shop else Onboarding
+
     val exploreHomeViewModel: ExploreHomeSharedViewModel = hiltViewModel()
     NavHost(
         navController = navController, startDestination = startDestination
     ) {
 
         composable<Onboarding> {
+            val scope = rememberCoroutineScope() // get a Compose coroutine scope
+
             OnboardingScreen(
                 onGetStarted = {
-                    navController.navigate(Shop) {
-                        popUpTo(Onboarding) { inclusive = true }
+                    scope.launch {
+                        navHostViewModel.completeOnboarding() // suspend call
+                        navController.navigate(Shop) {
+                            popUpTo(Onboarding) { inclusive = true }
+                        }
                     }
                 })
         }
 
         composable<Shop> {
+
             HomeScreen(modifier = Modifier.padding(contentPadding), onProductClick = { productId ->
                 navController.navigate(Product(id = productId))
             }, viewModel = viewModel, onSearchBarClick = {
