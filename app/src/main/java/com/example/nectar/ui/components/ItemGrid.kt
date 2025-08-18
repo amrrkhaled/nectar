@@ -25,7 +25,6 @@ fun ProductGrid(
     LazyVerticalGrid(
         modifier= modifier,
         columns = GridCells.Fixed(2), // 2 columns side by side
-        contentPadding = PaddingValues(8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {

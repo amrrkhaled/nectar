@@ -1,6 +1,5 @@
 package com.example.nectar.data.repository
 
-import android.provider.SyncStateContract.Helpers.insert
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.nectar.data.local.dao.ProductDao
 import com.example.nectar.data.mapper.toDomain
@@ -21,12 +20,18 @@ class ProductRepositoryImpl @Inject constructor(
         val sqlBuilder = StringBuilder()
         val args = mutableListOf<Any>()
 
-        sqlBuilder.append("SELECT * FROM product WHERE name LIKE ?")
-        args.add("%${filter.queryText}%")
+        sqlBuilder.append("SELECT * FROM products WHERE 1=1")
 
-        filter.category?.let {
-            sqlBuilder.append(" AND category = ?")
-            args.add(it)
+        if (filter.queryText.isNotBlank()) {
+            sqlBuilder.append(" AND name LIKE ?")
+            args.add("%${filter.queryText}%")
+        }
+
+        filter.categories?.let { categories ->
+            if (categories.isNotEmpty()) {
+                sqlBuilder.append(" AND category IN (${categories.joinToString(",") { "?" }})")
+                args.addAll(categories)
+            }
         }
         filter.minPrice?.let {
             sqlBuilder.append(" AND price >= ?")
@@ -41,6 +46,7 @@ class ProductRepositoryImpl @Inject constructor(
         val productEntities = productDao.searchProducts(query)
         return productEntities.map { it.toDomain() }
     }
+
 
     override suspend fun getProducts(): List<Product> {
         val productEntities = productDao.getAllProducts()

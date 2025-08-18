@@ -44,7 +44,7 @@ fun SearchBar(
             .padding(horizontal = 16.dp),
         contentAlignment = Alignment.CenterStart,
 
-    ) {
+        ) {
         Row(
             modifier = Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically
