@@ -1,7 +1,6 @@
 package com.example.nectar.ui.screens.explore
 
 import android.util.Log
-import android.util.Log.v
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nectar.R
@@ -10,17 +9,10 @@ import com.example.nectar.domain.model.Category
 import com.example.nectar.domain.model.Product
 import com.example.nectar.domain.model.SearchFilter
 import com.example.nectar.domain.usecase.cartItems.AddToCartUseCase
-import com.example.nectar.domain.usecase.cartItems.DecrementItemUseCase
-import com.example.nectar.domain.usecase.cartItems.GetCartItemsUseCase
-import com.example.nectar.domain.usecase.cartItems.GetTotalPriceUseCase
-import com.example.nectar.domain.usecase.cartItems.GoToCheckoutUseCase
-import com.example.nectar.domain.usecase.cartItems.IncrementItemUseCase
-import com.example.nectar.domain.usecase.cartItems.RemoveItemUseCase
 import com.example.nectar.domain.usecase.explore.GetProductsByCategoryUseCase
 import com.example.nectar.domain.usecase.explore.SearchProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -78,7 +70,6 @@ class ExploreScreenViewModel @Inject constructor(
     val isSearching = _isSearching.asStateFlow()
 
 
-
     private val _searchFilter = MutableStateFlow<SearchFilter>(
         SearchFilter(
             queryText = "",
@@ -87,22 +78,26 @@ class ExploreScreenViewModel @Inject constructor(
     val searchFilter = _searchFilter.asStateFlow()
 
 
-
     fun updateSearchFilter(newFilter: SearchFilter) {
         _searchFilter.value = newFilter
         Log.d("ExploreScreenViewModel", "Search filter updated: $newFilter")
     }
+
     fun resetSearchFilter() {
         _searchFilter.value = SearchFilter(queryText = "")
         Log.d("ExploreScreenViewModel", "Search filter reset")
     }
+
     fun searchProducts() {
 
         viewModelScope.launch {
             val results = searchProductsUseCase(searchFilter.value)
             _searchResults.value = results
             _isSearching.value = true
-            Log.d("ExploreScreenViewModel", "isSearching: ${_isSearching.value}, Results: ${results.size}")
+            Log.d(
+                "ExploreScreenViewModel",
+                "isSearching: ${_isSearching.value}, Results: ${results.size}"
+            )
 
 
         }
@@ -137,15 +132,4 @@ class ExploreScreenViewModel @Inject constructor(
         }
     }
 
-
-    private val _focusSearchBarEvent = MutableStateFlow(false)
-    val focusSearchBarEvent: StateFlow<Boolean> = _focusSearchBarEvent
-
-    fun triggerSearchFocus() {
-        _focusSearchBarEvent.value = true
-    }
-
-    fun consumeSearchFocus() {
-        _focusSearchBarEvent.value = false
-    }
 }
