@@ -1,4 +1,4 @@
-package com.example.nectar.data.prefrences
+package com.example.nectar.data.preferences
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
