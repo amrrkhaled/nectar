@@ -1,6 +1,7 @@
 package com.example.nectar.ui.screens.explore
 
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.height
@@ -40,7 +41,9 @@ fun ExploreSearchBar(
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
-
+    BackHandler(enabled = searchQuery.queryText.isNotEmpty()) {
+        cancelSearch()
+    }
     LaunchedEffect(autoFocus) {
         if (autoFocus) {
             focusRequester.requestFocus()
