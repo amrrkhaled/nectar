@@ -1,20 +1,18 @@
 package com.example.nectar.ui.screens.explore
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBackIosNew
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.nectar.domain.model.Product
 import com.example.nectar.ui.components.ProductGrid
 import com.example.nectar.ui.theme.Black
+import com.example.nectar.ui.util.normalizeCategory
 
 @Composable
 fun CategoryScreen(

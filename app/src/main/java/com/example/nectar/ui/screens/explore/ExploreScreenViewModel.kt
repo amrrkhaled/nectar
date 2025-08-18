@@ -77,12 +77,16 @@ class ExploreScreenViewModel @Inject constructor(
     private val _isSearching = MutableStateFlow(false)
     val isSearching = _isSearching.asStateFlow()
 
+
+
     private val _searchFilter = MutableStateFlow<SearchFilter>(
         SearchFilter(
             queryText = "",
         )
     )
     val searchFilter = _searchFilter.asStateFlow()
+
+
 
     fun updateSearchFilter(newFilter: SearchFilter) {
         _searchFilter.value = newFilter
@@ -98,6 +102,7 @@ class ExploreScreenViewModel @Inject constructor(
             val results = searchProductsUseCase(searchFilter.value)
             _searchResults.value = results
             _isSearching.value = true
+            Log.d("ExploreScreenViewModel", "isSearching: ${_isSearching.value}, Results: ${results.size}")
 
 
         }

@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import com.example.nectar.ui.components.WideButton
 import com.example.nectar.ui.theme.BottomSheetBackgroundColor
 import com.example.nectar.ui.theme.NectarTheme
@@ -47,7 +48,12 @@ fun FilterScreen(
 
         ) { paddingValues ->
         FilterScreenContent(
-            modifier = Modifier.padding(paddingValues), viewModel = viewModel, onClose = onClose
+            modifier = Modifier.padding( PaddingValues(
+                start = paddingValues.calculateStartPadding(LayoutDirection.Ltr),
+                top = paddingValues.calculateTopPadding(),
+                end = paddingValues.calculateEndPadding(LayoutDirection.Ltr),
+                bottom = 0.dp
+            )), viewModel = viewModel, onClose = onClose
         )
 
     }
@@ -64,6 +70,7 @@ fun FilterScreenContent(
     var maxPrice by remember(searchFilter.maxPrice) {
         mutableStateOf(searchFilter.maxPrice?.toFloat() ?: 10f) // default 100
     }
+    val isSearching by viewModel.isSearching.collectAsState()
     val categories = listOf(
         "Fresh Fruits & Vegetable",
         "Cooking Oil & Ghee",
@@ -92,8 +99,8 @@ fun FilterScreenContent(
                 .padding(horizontal = 24.dp)
         ) {
             Spacer(modifier = Modifier.height(32.dp))
+            if(isSearching){
 
-            // Categories Section
             Text(
                 text = "Categories",
                 style = MaterialTheme.typography.headlineSmall,
@@ -117,6 +124,7 @@ fun FilterScreenContent(
                     label = category
                 )
 
+            }
             }
             Spacer(modifier = Modifier.height(32.dp))
 
@@ -144,7 +152,7 @@ fun FilterScreenContent(
                 onClick = {
                     viewModel.updateSearchFilter(
                         searchFilter.copy(
-                            categories = selectedCategories?.toList(),
+                            categories = if(isSearching) selectedCategories?.toList() else null,
                             maxPrice = maxPrice.toDouble()
                         )
                     )
