@@ -38,16 +38,20 @@ class MainActivity : ComponentActivity() {
             }
 
         }
+
         setContent {
+
             NectarTheme {
                 val isOnboardingCompleted by navHostViewModel.isOnboardingCompleted.collectAsState()
+                val startDestination =
+                    if (isOnboardingCompleted == false) Onboarding else Shop
 
-                if (isOnboardingCompleted != null) {
-                    val startDestination = if (isOnboardingCompleted == true) Shop else Onboarding
-                    NectarApp(
-                        homeViewModel, navHostViewModel, startDestination = startDestination
-                    )
-                }
+                NectarApp(
+                    homeViewModel,
+                    navHostViewModel,
+                    startDestination = startDestination
+                )
+
 
             }
         }
