@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Nectar</string>
+    <string name="category1">Fresh Fruits \n&amp; Vegetable</string>
+    <string name="category2">Cooking Oil \n&amp; Ghee</string>
+    <string name="category3">Meat &amp; Fish</string>
+    <string name="category4">Bakery &amp; Snacks</string>
+    <string name="category5">Dairy &amp; Eggs</string>
+    <string name="category6">Beverages</string>
+
 </resources>

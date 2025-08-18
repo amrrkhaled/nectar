@@ -37,7 +37,7 @@ interface ProductDao {
      @Query("SELECT * FROM products")
      suspend fun getAllProducts(): List<ProductEntity>
 
-     @RawQuery(observedEntities = [ProductEntity::class])
+     @RawQuery
      suspend fun searchProducts(query: SupportSQLiteQuery): List<ProductEntity>
 
      @Query("SELECT * FROM products WHERE isFavorite = 1")

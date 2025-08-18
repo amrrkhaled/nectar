@@ -23,6 +23,7 @@ import com.example.nectar.ui.navigation.Onboarding
 import com.example.nectar.ui.navigation.Shop
 import com.example.nectar.ui.screens.ProductDetail.ProductDetailTopBar
 import com.example.nectar.ui.screens.cart.CartTopBar
+import com.example.nectar.ui.screens.explore.ExploreTopBar
 import com.example.nectar.ui.screens.home.HomeScreen
 import com.example.nectar.ui.screens.home.HomeScreenAppBar
 import com.example.nectar.ui.screens.home.HomeViewModel

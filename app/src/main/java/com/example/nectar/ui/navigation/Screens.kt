@@ -13,6 +13,10 @@ object Shop
 object Cart
 
 @Serializable
+object Filter
+@Serializable
+data class Category (val name: String)
+@Serializable
 object Favourite
 @Serializable
 object Explore

@@ -36,13 +36,13 @@ import com.example.nectar.ui.theme.NectarTheme
 fun ProductCard(onAddToCart: () -> Unit = {}, product: Product, modifier: Modifier = Modifier , onProductClick: () -> Unit) {
     Card(
         modifier = modifier
-            .width(170.dp)
+            .width(175.dp)
             .height(250.dp)
             .clickable(onClick = onProductClick),
         shape = CustomShapes.card,
         colors = CardDefaults.cardColors(containerColor = Color.White),
         border = BorderStroke(color = LightGray, width = 1.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Spacer(modifier = Modifier.height(8.dp))
 

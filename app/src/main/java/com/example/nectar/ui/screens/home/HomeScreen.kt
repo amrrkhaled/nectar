@@ -1,6 +1,6 @@
 package com.example.nectar.ui.screens.home
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,11 +19,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import com.example.nectar.domain.model.Product
-import com.example.nectar.ui.components.ProductGrid
 import com.example.nectar.ui.components.SearchBar
+import com.example.nectar.ui.screens.explore.ExploreHomeSharedViewModel
 import com.example.nectar.ui.theme.NectarTheme
 import kotlinx.coroutines.delay
 
@@ -32,7 +30,9 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
     onProductClick: (Int) -> Unit,
-) {
+    onSearchBarClick: () -> Unit,
+    sharedViewModel: ExploreHomeSharedViewModel,
+    ) {
 
 
     val bestSelling by viewModel.bestSellingProducts.collectAsState()
@@ -51,7 +51,10 @@ fun HomeScreen(
                     .padding(horizontal = horizontalPadding)
             ) {
                 Spacer(modifier = Modifier.height(32.dp))
-                SearchBar(modifier = Modifier.fillMaxWidth())
+                SearchBar(modifier = Modifier.fillMaxWidth().clickable(
+                    onClick = {sharedViewModel.triggerSearchFocus()
+                        onSearchBarClick()}
+                ))
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
