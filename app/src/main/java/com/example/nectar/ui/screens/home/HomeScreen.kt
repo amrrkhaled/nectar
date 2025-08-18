@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.example.nectar.ui.components.ProductGrid
 import com.example.nectar.ui.components.SearchBar
 import com.example.nectar.ui.screens.explore.ExploreHomeSharedViewModel
 import com.example.nectar.ui.theme.NectarTheme
@@ -37,6 +39,7 @@ fun HomeScreen(
 
     val bestSelling by viewModel.bestSellingProducts.collectAsState()
     val exclusiveOffer by viewModel.exclusiveProducts.collectAsState()
+    val currentOffer by viewModel.currentOffer.collectAsState()
 
     LazyColumn(
         modifier = modifier.fillMaxWidth()
@@ -76,12 +79,16 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(horizontal = horizontalPadding)
             ) {
-                ProductsRow(
+
+                OfferView(
                     title = "Exclusive Offer", products = exclusiveOffer,
                     onAddToCart = { id ->
                         viewModel.addToCart(id) },
                     onProductClick = onProductClick,
                 )
+
+
+
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
@@ -92,33 +99,13 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(horizontal = horizontalPadding)
             ) {
-                ProductsRow(onAddToCart = { id ->
+                OfferView(onAddToCart = { id ->
                     viewModel.addToCart(id) },title = "Best Selling", products = bestSelling, onProductClick = onProductClick )
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
 
     }
-}
-
-@Composable
-fun ImageBanner(images: List<String>, modifier: Modifier = Modifier) {
-    var currentIndex by remember { mutableStateOf(0) }
-
-    // Automatically change image every 3 seconds
-    LaunchedEffect(Unit) {
-        while (true) {
-            delay(3000)
-            currentIndex = (currentIndex + 1) % images.size
-        }
-    }
-
-    AsyncImage(
-        model = images[currentIndex],
-        contentDescription = "Banner",
-        modifier = modifier.fillMaxWidth(),
-        contentScale = ContentScale.Crop
-    )
 }
 
 @Preview(showBackground = true, showSystemUi = true)

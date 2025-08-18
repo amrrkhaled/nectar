@@ -34,6 +34,8 @@ class HomeViewModel @Inject constructor(
 
     private val _ready = MutableStateFlow(false)
     val ready: StateFlow<Boolean> = _ready.asStateFlow()
+    private val _currentOffer = MutableStateFlow(OfferType.NONE)
+    val currentOffer: StateFlow<OfferType> = _currentOffer.asStateFlow()
 
     init {
 
@@ -45,7 +47,21 @@ class HomeViewModel @Inject constructor(
              _ready.value=true
         }
     }
+    fun showExclusive() {
+        if (_exclusiveProducts.value.isNotEmpty()) {
+            _currentOffer.value = OfferType.EXCLUSIVE
+        }
+    }
 
+    fun showBestSelling() {
+        if (_bestSellingProducts.value.isNotEmpty()) {
+            _currentOffer.value = OfferType.BEST_SELLING
+        }
+    }
+
+    fun clearOffer() {
+        _currentOffer.value = OfferType.NONE
+    }
      fun addToCart(productId: Int) {
          Log.e("HomeViewModel", "Adding product with ID:  to cart")
 
@@ -59,4 +75,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+}
+enum class OfferType {
+    NONE,
+    EXCLUSIVE,
+    BEST_SELLING
 }

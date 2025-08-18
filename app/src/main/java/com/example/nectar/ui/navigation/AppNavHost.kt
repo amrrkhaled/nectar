@@ -71,6 +71,7 @@ fun AppNavHost(
                 }
 
             }, sharedViewModel = exploreHomeViewModel,
+
             )
         }
         composable<Product> {

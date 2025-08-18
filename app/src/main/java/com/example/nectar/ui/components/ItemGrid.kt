@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -20,10 +21,20 @@ fun ProductGrid(
     products: List<Product>,
     onAddToCart: (Int) -> Unit ,
     modifier: Modifier = Modifier,
-    onProductClick: (Int) -> Unit
+    onProductClick: (Int) -> Unit,
+    userScrollEnabled: Boolean = true,
+    ignoreBottomPadding: Boolean = false,
+
 ) {
     LazyVerticalGrid(
-        modifier= modifier,
+        userScrollEnabled = userScrollEnabled,
+        modifier= modifier.padding(
+            start = 0.dp,
+            end = 0.dp,
+            top = 0.dp,
+            bottom = if(ignoreBottomPadding) 0.dp else 88.dp
+
+        ),
         columns = GridCells.Fixed(2), // 2 columns side by side
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
