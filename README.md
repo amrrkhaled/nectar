@@ -164,8 +164,14 @@ The app implements a consistent design system with:
 ### Explore Screen
 ![Explore Screen](screenshots/explore_screen.png)
 
+### Search Feature
+![Search Feature](screenshots/search_feature.png)
+
 ### Shopping Cart
 ![Shopping Cart](screenshots/cart_screen.png)
+
+### Order Completed Screen
+![Order Completed Screen](screenshots/orderCompleted_screen.png)
 
 
 
