@@ -32,7 +32,5 @@ fun FavoriteScreen(
 @Composable
 fun FavoriteScreenPreview() {
 
-//    FavoriteScreen()
-
 }
 

@@ -10,7 +10,6 @@ class SearchProductsUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(filter: SearchFilter): List<Product> {
         return repository.searchProducts(filter)
-//        return repository.getProducts()
 
         }
     }

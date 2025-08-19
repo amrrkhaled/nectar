@@ -22,7 +22,7 @@ fun CategoryScreen(
     onProductClick: (Int) -> Unit,
     onFilterClick: () -> Unit = {}
 ) {
-    // Normalize category once
+    // Normalize category (to remove spaces and special characters)
     val normalizedCategory = remember(category) { normalizeCategory(category) }
 
     // Fetch products when category changes

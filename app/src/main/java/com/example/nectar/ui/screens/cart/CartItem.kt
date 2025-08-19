@@ -66,7 +66,6 @@ fun CartItem(
     ) {
         // Product Image
         Image(
-//            painter = painterResource(R.drawable.apple),
             painter = rememberAsyncImagePainter(cartItem.imageUrl),
             contentDescription = cartItem.name,
             contentScale = ContentScale.Fit,

@@ -24,10 +24,6 @@ import com.example.nectar.ui.theme.LightGray
 fun NutritionChip(
     weight:Int,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    backgroundColor: Color = Color(0xFFF2F3F2),
-    textColor: Color = Color.Black,
-
 ) {
     Box(
         modifier = modifier

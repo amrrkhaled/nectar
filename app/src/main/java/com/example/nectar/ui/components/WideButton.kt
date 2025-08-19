@@ -25,7 +25,7 @@ fun WideButton(
     extra: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     colors: ButtonColors = ButtonDefaults.buttonColors(
-        containerColor = MaterialTheme.colorScheme.primary, // Default green
+        containerColor = MaterialTheme.colorScheme.primary,
         contentColor = White
     )
 ) {
@@ -48,12 +48,12 @@ fun WideButton(
                 style = MaterialTheme.typography.titleMedium
             )
 
-            // Extra composable aligned to center-right
+            // Extra composable
             if (extra != null) {
                 Box(
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
-                        .padding(end = 12.dp) // space from edge
+                        .padding(end = 12.dp)
                 ) {
                     extra()
                 }

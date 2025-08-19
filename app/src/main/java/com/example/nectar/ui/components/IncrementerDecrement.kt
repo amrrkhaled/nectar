@@ -61,7 +61,7 @@ fun IncrementDecrement(
                 )
         ) {
             Text(
-                value.toString(), // use value directly from parent
+                value.toString(),
                 style = MaterialTheme.typography.titleMedium,
                 color = Color.Black
             )
@@ -85,8 +85,6 @@ fun IncrementDecrement(
 @Composable
 fun IncrementDecrementPreview() {
     NectarTheme {
-
-
         IncrementDecrement(
             value = 1, onIncrement = {}, onDecrement = {}, modifier = Modifier
         )

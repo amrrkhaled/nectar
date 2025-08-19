@@ -117,17 +117,7 @@ fun ExploreView(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ExploreTopBar(
-    title: String = "Find Products",
-) {
-    CenterAlignedTopAppBar(
-        title = { Text(title, fontWeight = FontWeight.Bold) },
-    )
 
-
-}
 
 @Preview
 @Composable

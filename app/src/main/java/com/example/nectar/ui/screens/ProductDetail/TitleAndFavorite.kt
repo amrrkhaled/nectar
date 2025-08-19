@@ -40,7 +40,7 @@ fun TitleAndFavorite(
         )
         IconButton(
             onClick = onFavoriteClick,
-            modifier = Modifier.size(40.dp) // keeps alignment tidy
+            modifier = Modifier.size(40.dp)
         ) {
             Icon(
                 imageVector = if (product.isFavorite) Icons.Filled.Favorite else Icons.Default.FavoriteBorder,

@@ -92,8 +92,8 @@ fun ExploreSearchBar(
         singleLine = true,
         textStyle = MaterialTheme.typography.titleMedium,
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Color.Transparent,  // Light blue background when focused
-            unfocusedContainerColor = Color.Transparent, // Light blue background when not focused
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
             focusedBorderColor = Color.Transparent,
             unfocusedBorderColor = Color.Transparent,
 

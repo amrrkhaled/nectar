@@ -43,10 +43,8 @@ fun Banner(modifier: Modifier = Modifier) {
         R.drawable.img_banner2,
         R.drawable.img_banner3,
     )
-    // Pager state to manage the current page and total pages
     val pagerState = rememberPagerState(pageCount = { images.size })
 
-    // Automatically scroll through the pages every 3 seconds
     LaunchedEffect(Unit) {
         while (true) {
             delay(3000)
@@ -54,8 +52,6 @@ fun Banner(modifier: Modifier = Modifier) {
             pagerState.scrollToPage(nextPage)
         }
     }
-    // Box to contain the pager and the indicator
-    // The Box allows us to overlay the indicator on top of the pager
     Box(
         modifier = modifier
             .width(365.dp)

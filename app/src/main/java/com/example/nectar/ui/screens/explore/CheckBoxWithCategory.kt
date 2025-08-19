@@ -39,7 +39,7 @@ fun CheckBoxWithCategory(
                 onCheckedChange(!isChecked)
             }
     ) {
-        // Custom checkbox using a rounded square
+        // Custom checkbox
         Box(
             modifier = Modifier
                 .size(25.dp)

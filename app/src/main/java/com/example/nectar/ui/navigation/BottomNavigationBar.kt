@@ -38,7 +38,7 @@ fun BottomNavigationBar(navController: NavHostController) {
         Account::class.qualifiedName
     )
 
-    // Hide bottom nav for screens like Product, Order, etc.
+    // Hide bottom nav for other routes
     if (currentRoute !in bottomNavRoutes) return
 
     val bottomNavItems = listOf(
@@ -57,8 +57,7 @@ fun BottomNavigationBar(navController: NavHostController) {
         shadowElevation = 16.dp
     ) {
         NavigationBar(
-            containerColor = Transparent,
-            tonalElevation = 0.dp
+            containerColor = Transparent, tonalElevation = 0.dp
         ) {
             bottomNavItems.forEach { item ->
                 NavigationBarItem(
@@ -72,9 +71,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                                 Black
                             }
                         )
-                    },
-                    selected = currentRoute == item.route::class.qualifiedName,
-                    onClick = {
+                    }, selected = currentRoute == item.route::class.qualifiedName, onClick = {
                         navController.navigate(item.route) {
                             popUpTo(navController.graph.startDestinationId) {
                                 saveState = true
@@ -82,8 +79,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                             launchSingleTop = true
                             restoreState = true
                         }
-                    },
-                    colors = NavigationBarItemDefaults.colors(
+                    }, colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = MaterialTheme.colorScheme.primary,
                         unselectedIconColor = Black,
                         indicatorColor = Color.Transparent
@@ -94,11 +90,8 @@ fun BottomNavigationBar(navController: NavHostController) {
     }
 }
 
-// Updated data class
 data class BottomNavItem(
-    val label: String,
-    val iconRes: Int,
-    val route: Any // Changed to Any to work with serializable objects
+    val label: String, val iconRes: Int, val route: Any
 )
 
 @Preview

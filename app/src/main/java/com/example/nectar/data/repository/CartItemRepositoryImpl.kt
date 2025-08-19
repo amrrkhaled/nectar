@@ -14,8 +14,6 @@ class CartItemRepositoryImpl @Inject constructor(
     private val cartItemDao: CartItemDao
 ) : CartItemRepository {
 
-    // Implement the methods from CartItemRepository interface here
-    // For example:
 
     override fun getCartItems(): Flow<List<CartItemView>> {
         return cartItemDao.getCartWithProducts()

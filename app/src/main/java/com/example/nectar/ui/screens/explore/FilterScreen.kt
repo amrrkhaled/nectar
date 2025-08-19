@@ -128,7 +128,7 @@ fun FilterScreenContent(
             }
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Categories Section
+            // Max Price Slider
             Text(
                 text = "Max Price: \$${String.format("%.2f", maxPrice)}",
                 style = MaterialTheme.typography.headlineSmall,

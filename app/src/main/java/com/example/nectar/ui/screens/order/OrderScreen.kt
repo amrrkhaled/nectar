@@ -57,7 +57,7 @@ fun OrderScreen(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            // Success icon image
+            // Success image
             Image(
                 painter = painterResource(id = R.drawable.order),
                 contentDescription = "Order Image",

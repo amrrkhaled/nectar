@@ -22,7 +22,6 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext appContext: Context,
-        // Inject your DAOs here or a CoroutineScope if needed
     ): AppDatabase {
         return Room.databaseBuilder(
             appContext,

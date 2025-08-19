@@ -50,9 +50,6 @@ fun NectarApp(viewModel: HomeViewModel, navHostViewModel: NavHostViewModel, star
                 }
             },
             bottomBar = { BottomNavigationBar(navController = navController) },
-            floatingActionButton = {
-                /* TODO: Add FloatingActionButton here if needed */
-            },
             modifier = Modifier.fillMaxSize()
         ) { innerPadding ->
 

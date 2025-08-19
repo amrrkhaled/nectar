@@ -39,7 +39,6 @@ fun HomeScreen(
 
     val bestSelling by viewModel.bestSellingProducts.collectAsState()
     val exclusiveOffer by viewModel.exclusiveProducts.collectAsState()
-    val currentOffer by viewModel.currentOffer.collectAsState()
 
     LazyColumn(
         modifier = modifier.fillMaxWidth()

@@ -7,14 +7,6 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "products",
-//    foreignKeys = [
-//        ForeignKey(
-//            entity = CategoryEntity::class,
-//            parentColumns = ["id"],
-//            childColumns = ["category_id"],
-//            onDelete = ForeignKey.CASCADE
-//        )
-//    ]
 )
 data class ProductEntity(
     @PrimaryKey(autoGenerate = true)
@@ -33,7 +25,6 @@ data class ProductEntity(
 
     val description: String,
 
-    // Requires a TypeConverter to store Map<String, String>
     val nutrition: Map<String, String>,
 
     val review: Int,

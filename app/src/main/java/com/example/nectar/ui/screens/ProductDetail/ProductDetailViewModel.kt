@@ -25,13 +25,11 @@ class ProductDetailViewModel @Inject constructor(
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
     private val addToCartUseCase: AddToCartUseCase,
     savedStateHandle: SavedStateHandle
-
-
 ) : ViewModel() {
 
-    val productIdd: Int = checkNotNull(savedStateHandle["id"])
+    val product_id: Int = checkNotNull(savedStateHandle["id"])
 
-    private val _productId = MutableStateFlow<Int>(productIdd)
+    private val _productId = MutableStateFlow<Int>(product_id)
     val productId = _productId.asStateFlow()
 
 
