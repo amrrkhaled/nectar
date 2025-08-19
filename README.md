@@ -153,27 +153,25 @@ The app implements a consistent design system with:
 - **Version Catalog** - Dependency management
 - **Project Properties** - Build configuration
 
-##📱 Screenshots
+## 📱 Screenshots
 
 ### Home Screen
-![Home Screen](screenshots/home_screen.png)
+<img src="screenshots/home_screen.png" width="300" alt="Home Screen">
 
 ### Product Details
-![Product Detail](screenshots/product_detail.png)
+<img src="screenshots/product_detail.png" width="300" alt="Product Detail">
 
 ### Explore Screen
-![Explore Screen](screenshots/explore_screen.png)
+<img src="screenshots/explore_screen.png" width="300" alt="Explore Screen">
 
 ### Search Feature
-![Search Feature](screenshots/search_feature.png)
+<img src="screenshots/search_feature.png" width="300" alt="Search Feature">
 
 ### Shopping Cart
-![Shopping Cart](screenshots/cart_screen.png)
+<img src="screenshots/cart_screen.png" width="300" alt="Shopping Cart">
 
 ### Order Completed Screen
-![Order Completed Screen](screenshots/orderCompleted_screen.png)
-
-
+<img src="screenshots/orderCompleted_screen.png" width="300" alt="Order Completed Screen">
 
 ## 🤝 Contributing
 
@@ -194,13 +192,4 @@ The app implements a consistent design system with:
 - [ ] Add delivery tracking
 - [ ] Implement user reviews and ratings
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Author
-
-**Your Name**
-- GitHub: (https://github.com/amrrkhaled)
-- Email: amr.khaledsaada@gmail.com
 
